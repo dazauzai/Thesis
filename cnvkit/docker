@@ -1,0 +1,13 @@
+FROM continuumio/miniconda3
+
+WORKDIR /workspace
+
+RUN conda config --add channels defaults && \
+    conda config --add channels bioconda && \
+    conda config --add channels conda-forge
+
+RUN conda create -n py37_env python=3.7 --override-channels -c conda-forge -c defaults
+
+RUN conda run -n py37_env conda install -y pomegranate pandas=1.0.5 cnvkit bedtools samtools
+
+CMD ["/bin/bash"]
